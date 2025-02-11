@@ -1,0 +1,15 @@
+.carouselContainer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.slideItem {
+  position: relative;
+  height: 400px;
+}
+
+.slideItem img {
+  border-radius: 8px;
+}

@@ -38,6 +38,19 @@ const Home = () => {
             [-73.2, 5.7],
           ],
         });
+        // Agregar controles de navegación, geolocalización y escala
+        newMap.addControl(new mapboxgl.NavigationControl(), "top-right");
+        newMap.addControl(
+          new mapboxgl.GeolocateControl({
+            positionOptions: {
+              enableHighAccuracy: true,
+            },
+            trackUserLocation: true,
+          }),
+          "top-right"
+        );
+        newMap.addControl(new mapboxgl.ScaleControl({ maxWidth: 80, unit: 'metric' }));
+        
         setMap(newMap);
       }
     };
@@ -58,24 +71,35 @@ const Home = () => {
   }, [pageIsMounted, data, map]);
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        {/* Se eliminó la hoja de estilos de Mapbox.
-        <link
-          href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
-          rel="stylesheet"
-        /> */}
-      </Head>
+    <div className="min-h-screen bg-gray-100">
+      {/* Navbar */}
+      <nav className="bg-blue-500 text-white p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Tunja Conectamos con las Obras</h1>
+        </div>
+      </nav>
 
-      <main className={styles.main}>
-        <div
-          ref={mapContainerRef}
-          id="my-map"
-          style={{ height: 500, width: 500 }}
-        />
-      </main>
+      {/* Main Content */}
+      <div className="container mx-auto p-4">
+        {/* Subtitles */}
+        <div className="text-center py-4">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">Más de 200 obras entregadas en el 2024</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">Ciudad capital más segura de Colombia según estadísticas</h2>
+          <h2 className="text-lg font-semibold text-gray-600">Inflación de Tunja 2024: 4.44%, de las más bajas del país</h2>
+        </div>
+        <Head>
+          <title>Create Next App</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <main className={styles.main}>
+          <div
+            ref={mapContainerRef}
+            id="my-map"
+            style={{ height: 500, width: 500 }}
+          />
+        </main>
+      </div>
 
       <footer className={styles.footer}>
         <a

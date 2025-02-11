@@ -19,12 +19,21 @@ export const addDataLayer = (map: mapboxgl.Map, data: any) => {
   });
 
   map.on('click', 'places', (e) => {
-    const coordinates = (e.features[0].geometry as any).coordinates.slice();
-    const properties = e.features[0].properties;
+    const feature = e.features[0];
+    const coordinates = (feature.geometry as any).coordinates.slice();
+    const properties = feature.properties;
 
     new mapboxgl.Popup()
       .setLngLat(coordinates)
-      .setHTML(`<b>${properties.title}</b><p>${properties.venue}</p>`)
+      .setHTML(`
+        <div style="text-align:center;">
+          <b>${properties.title}</b>
+          <p>${properties.venue}</p>
+          <p>Eventos: ${properties.event_count}</p>
+          <p>Coordenadas: ${coordinates[0]}, ${coordinates[1]}</p>
+          <img src="${properties.image}" alt="${properties.title}" style="width:100px;height:auto;margin-top:5px;"/>
+        </div>
+      `)
       .addTo(map);
   });
 

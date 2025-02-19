@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import styles from "../styles/Home.module.css";
 
 const ITEMS_PER_BATCH = 20;
 const TOTAL_ITEMS = 200;
@@ -29,22 +30,7 @@ const ObrasList: React.FC = () => {
   };
 
   return (
-    <div
-      ref={listRef}
-      onScroll={handleScroll}
-      style={{
-        position: "fixed",
-        right: 0,
-        top: "100px",
-        width: "300px",
-        height: "70vh",
-        overflowY: "auto",
-        background: "white",
-        border: "1px solid #ccc",
-        padding: "1rem",
-        boxShadow: "-2px 2px 10px rgba(0,0,0,0.1)"
-      }}
-    >
+    <div ref={listRef} onScroll={handleScroll} className={styles.obrasList}>
       <h2>Más de 200 obras entregadas en el 2024</h2>
       <ul>
         {visibleItems.map((obra, index) => (

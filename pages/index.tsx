@@ -75,7 +75,7 @@ const Home = () => {
       {/* Navbar */}
       <nav className="bg-blue-500 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Tunja Conectamos con las Obras</h1>
+          <h1 className={styles.navbarTitle}>Tunja Conectamos con las Obras</h1>
         </div>
       </nav>
 
@@ -83,9 +83,9 @@ const Home = () => {
       <div className="container mx-auto p-4">
         {/* Subtitles */}
         <div className="text-center py-4">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">Más de 200 obras entregadas en el 2024</h2>
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">Ciudad capital más segura de Colombia según estadísticas</h2>
-          <h2 className="text-lg font-semibold text-gray-600">Inflación de Tunja 2024: 4.44%, de las más bajas del país</h2>
+          <h2 className={styles.subtitleLarge}>Más de 200 obras entregadas en el 2024</h2>
+          <h2 className={styles.subtitleMedium}>Ciudad capital más segura de Colombia según estadísticas</h2>
+          <h2 className={styles.subtitleSmall}>Inflación de Tunja 2024: 4.44%, de las más bajas del país</h2>
         </div>
         <Head>
           <title>Create Next App</title>

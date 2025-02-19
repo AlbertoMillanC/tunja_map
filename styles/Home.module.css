@@ -121,3 +121,35 @@
     flex-direction: column;
   }
 }
+
+.navbarTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0;
+}
+
+.subtitleLarge {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.subtitleMedium {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.subtitleSmall {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}

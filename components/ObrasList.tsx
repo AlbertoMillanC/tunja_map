@@ -1,40 +1,29 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
-const ITEMS_PER_BATCH = 20;
-const TOTAL_ITEMS = 200;
-const allObras = Array.from({ length: TOTAL_ITEMS }, (_, i) => `Obra ${i + 1}`);
+type Feature = {
+  properties: {
+    title: string;
+    // ...existing properties...
+  };
+};
 
 const ObrasList: React.FC = () => {
-  const [visibleItems, setVisibleItems] = useState<string[]>([]);
-  const listRef = useRef<HTMLDivElement>(null);
+  const [features, setFeatures] = useState<Feature[]>([]);
 
   useEffect(() => {
-    loadMore();
+    fetch('/api/liveMusic')
+      .then((res) => res.json())
+      .then((data) => setFeatures(data.features))
+      .catch(console.error);
   }, []);
 
-  const loadMore = () => {
-    setVisibleItems((prev) => {
-      const nextItems = allObras.slice(prev.length, prev.length + ITEMS_PER_BATCH);
-      return [...prev, ...nextItems];
-    });
-  };
-
-  const handleScroll = () => {
-    if (listRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = listRef.current;
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
-        loadMore();
-      }
-    }
-  };
-
   return (
-    <div ref={listRef} onScroll={handleScroll} className={styles.obrasList}>
-      <h2>Más de 200 obras entregadas en el 2024</h2>
+    <div className={styles.obrasList}>
+      <h2>Obras de liveMusic</h2>
       <ul>
-        {visibleItems.map((obra, index) => (
-          <li key={index}>{obra}</li>
+        {features.map((feature, idx) => (
+          <li key={idx}>{feature.properties.title}</li>
         ))}
       </ul>
     </div>

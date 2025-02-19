@@ -5,6 +5,7 @@ import { addDataLayer } from "../map/addDataLayer";
 import { initializeMap } from "../maps/initializeMap";
 import styles from "../styles/Home.module.css";
 import mapboxgl from "mapbox-gl";
+import ObrasList from "../components/ObrasList";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -81,12 +82,7 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="container mx-auto p-4">
-        {/* Subtitles */}
-        <div className="text-center py-4">
-          <h2 className={styles.subtitleLarge}>Más de 200 obras entregadas en el 2024</h2>
-          <h2 className={styles.subtitleMedium}>Ciudad capital más segura de Colombia según estadísticas</h2>
-          <h2 className={styles.subtitleSmall}>Inflación de Tunja 2024: 4.44%, de las más bajas del país</h2>
-        </div>
+        {/* Removed previous Subtitles component */}
         <Head>
           <title>Create Next App</title>
           <link rel="icon" href="/favicon.ico" />
@@ -111,6 +107,8 @@ const Home = () => {
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
+      {/* Render the ObrasList component independently */}
+      <ObrasList />
     </div>
   );
 };

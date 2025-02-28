@@ -7,13 +7,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       // Group 1
       {
         type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3600, 5.540] },
+        geometry: { type: "Point", coordinates: [-73.3600, 5.530] },
         properties: {
           title: "Inauguración de la ampliación del polideportivo de Runta1",
           cluster: false,
           venue: "Runta, Tunja",
           event_count: 1,
-          image: "https://via.placeholder.com/150?text=Inauguraci%C3%B3n+polideportivo+Runta1"
+          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
         }
       },
       // Group 2
@@ -26,7 +26,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           venue: "Runta, Tunja",
           event_count: 1,
           start_date: "2024",
-          image: "https://via.placeholder.com/150?text=Actualizaci%C3%B3n+estudios+Runta1"
+          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
         }
       },
       // Group 3
@@ -52,7 +52,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           venue: "Tunja",
           event_count: 1,
           start_date: "Noviembre 2024",
-          image: "https://via.placeholder.com/150?text=A+Tunja+la+construimos"
+          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
         }
       },
       // Group 5

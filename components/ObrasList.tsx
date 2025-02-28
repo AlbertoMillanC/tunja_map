@@ -19,13 +19,18 @@ const ObrasList: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.obrasList}>
-      <h2>Obras de liveMusic</h2>
-      <ul>
-        {features.map((feature, idx) => (
-          <li key={idx}>{feature.properties.title}</li>
-        ))}
-      </ul>
+    <div className={styles.obrasList} role="complementary" aria-label="Lista de Obras">
+      <h3 className={styles.subtitle}>OBRAS PARA TUNJA</h3>
+      {/* Internal scroll container for the list */}
+      <div className={styles.obrasListInner}>
+        <ul role="list">
+          {features.map((feature, idx) => (
+            <li key={idx} role="listitem" tabIndex={0}>
+              {feature.properties.title}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

@@ -1,28 +1,37 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .main {
-  padding: 5rem 0;
+  padding: 2rem;
+  width: 100%;
+  text-align: center;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .footer {
   width: 100%;
   height: 100px;
-  border-top: 1px solid #eaeaea;
+
+  border-top: 1px solid var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .footer img {
@@ -36,7 +45,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -47,19 +56,35 @@
 }
 
 .title {
-  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 1rem 0;
   line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
   text-align: center;
+  background: linear-gradient(to right, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif; /* optional if you want to mix fonts */
+}
+
+/* Update subtitle style used by ObrasList and other components */
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+  max-width: 75ch; /* ensure text does not span too wide */
 }
 
 .description {
-  line-height: 1.5;
   font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--text-color);
 }
 
 .code {
@@ -76,9 +101,11 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-
   max-width: 800px;
   margin-top: 3rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-color: var(--primary-color);
 }
 
 .card {
@@ -86,18 +113,19 @@
   flex-basis: 45%;
   padding: 1.5rem;
   text-align: left;
-  color: inherit;
+  color: var(--text-color);
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid #000;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
+  background-color: var(--bg-color);
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .card h3 {
@@ -125,7 +153,7 @@
 .navbarTitle {
   font-size: 2.5rem;
   font-weight: bold;
-  color: var(--primary-color);
+  color: var(--text-color);
   text-align: center;
   margin: 0;
 }
@@ -155,16 +183,82 @@
 }
 
 .obrasList {
-  position: fixed;
-  right: 0;
-  top: 100px;
-  width: 300px;
-  height: 70vh;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ccc;
+  position: relative; /* remains relative */
+  width: 100%;
+  height: auto;
+  margin: 0; /* removed extra margin for proper placement */
   padding: 1rem;
-  box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid #000;
+  box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* New internal scroll container for ObrasList to show 7 items */
+.obrasListInner {
+  max-height: 350px; /* adjust this value according to your li height such that only 7 items show */
+  overflow-y: auto;
+}
+
+/* Modernized scrollbar styles for the internal scroll container */
+.obrasListInner {
+  max-height: 350px; /* adjust value such that 7 items are visible */
+  overflow-y: auto;
+}
+
+/* For WebKit-based browsers */
+.obrasListInner::-webkit-scrollbar {
+  width: 8px;
+}
+
+.obrasListInner::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 4px;
+}
+
+.obrasListInner::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  border: 2px solid #222; /* makes thumb stand out */
+}
+
+/* For Firefox */
+.obrasListInner {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #222;
+}
+
+/* New styles for ObrasList modern presentation */
+.obrasList h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.obrasList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.obrasList li {
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.obrasList li:hover {
+  background-color: #333;
 }
 
 @media (max-width: 600px) {
@@ -176,4 +270,94 @@
     box-shadow: none;
     border: none;
   }
+}
+
+/* Mobile-first default styles */
+/* For mobile, use column layout by default */
+.threeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Interactive elements touch feedback */
+.navLink {
+  -webkit-tap-highlight-color: transparent;
+  color: #fff; /* set text color to white */
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem; /* added for button effect */
+  border-radius: 4px;   /* soft rounding */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.navLink:active {
+  background-color: var(--primary-color);
+  opacity: 0.8;
+}
+
+/* Default column styles already mobile friendly */
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing);
+  background-color: var(--bg-color);
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+/* Increase layout complexity for larger screens */
+@media (min-width: 768px) {
+  .threeColumn {
+    flex-direction: row;
+    gap: 20px;
+    max-width: 1200px;
+  }
+}
+
+/* You can add other desktop enhancements below */
+
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  background: #000; /* changed from gradient to black */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbarLinks {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.navbarTitle {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.navbarTitle:hover {
+  transform: scale(1.02);
+}
+
+.mapSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 }

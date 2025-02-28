@@ -18,13 +18,23 @@ const ObrasList: React.FC = () => {
       .catch(console.error);
   }, []);
 
+  // Define allowed construction-related keywords
+  const allowedKeywords = ["constru", "pavimenta", "obra", "mejoramiento", "entrega", "alcantarillado", "vial"];
+  const undesiredTitle = "¡a tunja la construimos entre todos! (compromiso ciudadano)3";
+
+  const filteredFeatures = features.filter(feature => {
+    const title = feature.properties.title.toLowerCase();
+    if(title === undesiredTitle) return false;
+    return allowedKeywords.some(keyword => title.includes(keyword));
+  });
+
   return (
     <div className={styles.obrasList} role="complementary" aria-label="Lista de Obras">
-      <h3 className={styles.subtitle}>OBRAS PARA TUNJA</h3>
+      <h3 className={styles.subtitle}>Obras que transforman la ciudad</h3>
       {/* Internal scroll container for the list */}
       <div className={styles.obrasListInner}>
         <ul role="list">
-          {features.map((feature, idx) => (
+          {filteredFeatures.map((feature, idx) => (
             <li key={idx} role="listitem" tabIndex={0}>
               {feature.properties.title}
             </li>

@@ -1,199 +1,116 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+type Data = {
+  type: string;
+  features: Array<{
+    type: string;
+    properties: {
+      id: string;
+      title: string;
+      description: string;
+      status: string;
+      venue: string;
+      location: string;
+      start_date: string;
+      image: string;
+    };
+    geometry: {
+      type: string;
+      coordinates: [number, number];
+    };
+  }>;
+};
+
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   res.status(200).json({
     type: "FeatureCollection",
     features: [
-      // Group 1
       {
         type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3600, 5.530] },
         properties: {
-          title: "Inauguración de la ampliación del polideportivo de Runta1",
-          cluster: false,
-          venue: "Runta, Tunja",
-          event_count: 1,
-          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
+          id: "1",
+          title: "Pavimentación Calle 19",
+          description: "Pavimentación y mejoramiento de la Calle 19 entre Carrera 10 y Carrera 15, incluyendo instalación de alcantarillado y aceras.",
+          status: "En ejecución",
+          venue: "Centro Histórico",
+          location: "Calle 19 entre Carrera 10 y 15",
+          start_date: "2024-03-15",
+          image: "https://i.imgur.com/8XZqY3N.jpg"
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-73.3614, 5.5353]
         }
       },
-      // Group 2
       {
         type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3605, 5.541] },
         properties: {
-          title: "Actualización de estudios y diseños para el polideportivo de Runta1",
-          cluster: false,
-          venue: "Runta, Tunja",
-          event_count: 1,
-          start_date: "2024",
-          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
+          id: "2",
+          title: "Pavimentación Avenida Oriental",
+          description: "Pavimentación y modernización de la Avenida Oriental, incluyendo ciclo-rutas y mejoramiento del espacio público.",
+          status: "Planificado",
+          venue: "Norte de Tunja",
+          location: "Avenida Oriental entre Calle 45 y 55",
+          start_date: "2024-04-01",
+          image: "https://pbs.twimg.com/media/Gl4Iwq7WcAA_o_j?format=jpg&name=large"
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-73.3556, 5.5456]
         }
       },
-      // Group 3
       {
         type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3610, 5.542] },
         properties: {
-          title: "Construcción y ampliación de la I.E. en Runta",
-          cluster: false,
-          venue: "Runta, Tunja",
-          event_count: 1,
-          image: "https://via.placeholder.com/150?text=Construcci%C3%B3n+I.E.+Runta"
+          id: "3",
+          title: "Pavimentación Barrio San Francisco",
+          description: "Pavimentación de vías principales del barrio San Francisco, incluyendo instalación de redes de agua potable y alcantarillado.",
+          status: "En ejecución",
+          venue: "Barrio San Francisco",
+          location: "Vías principales del barrio San Francisco",
+          start_date: "2024-02-20",
+          image: "https://pbs.twimg.com/media/GmBxiYEXkAAApCf?format=jpg&name=large"
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-73.3689, 5.5289]
         }
       },
-      // Group 4
       {
         type: "Feature",
-
-        geometry: { type: "Point", coordinates: [-73.3615, 5.543] },
         properties: {
-          title: "¡A Tunja la construimos entre todos! (compromiso ciudadano)3",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Noviembre 2024",
-          image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.instagram.com%2Falcaldiadetunja%2Fp%2FDGUCvqSx7pY%2F&psig=AOvVaw00rL4P7xsAWb632u6StRou&ust=1740259044985000&source=images&cd=vfe&opi=89978449&ved=0CBcQjRxqFwoTCJC9m6PY1YsDFQAAAAAdAAAAABAE"
+          id: "4",
+          title: "Pavimentación Carrera 11",
+          description: "Pavimentación y mejoramiento de la Carrera 11 entre Calle 15 y Calle 25, incluyendo instalación de semáforos y señalización.",
+          status: "Planificado",
+          venue: "Centro",
+          location: "Carrera 11 entre Calle 15 y 25",
+          start_date: "2024-05-01",
+          image: "https://pbs.twimg.com/media/GnN6COFW4AAnf82?format=jpg&name=medium"
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-73.3633, 5.5389]
         }
       },
-      // Group 5
       {
         type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3620, 5.544] },
         properties: {
-          title: "Cabalgata por las calles de Tunja",
-          cluster: false,
-          venue: "Centro histórico de Tunja",
-          event_count: 1,
-          start_date: "Octubre 2023",
-          image: "https://via.placeholder.com/150?text=Cabalgata+Tunja"
-        }
-      },
-      // Group 6
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3625, 5.545] },
-        properties: {
-          title: "Actividades culturales compartidas en Instagram",
-          cluster: false,
-          venue: "Palacio de la Alcaldía, Tunja",
-          event_count: 1,
-          start_date: "Noviembre 2024",
-          image: "https://via.placeholder.com/150?text=Actividades+Instagram"
-        }
-      },
-      // Group 7
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3630, 5.546] },
-        properties: {
-          title: "Evento de compromiso ciudadano",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Noviembre 2024",
-          image: "https://via.placeholder.com/150?text=Compromiso+ciudadano"
-        }
-      },
-      // Group 8
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3635, 5.547] },
-        properties: {
-          title: "Participación en el Festival Internacional de la Cultura Campesina",
-          cluster: false,
-          venue: "Varios puntos de Tunja",
-          event_count: 1,
-          start_date: "2024",
-          image: "https://via.placeholder.com/150?text=Festival+Cultural+Campesina"
-        }
-      },
-      // Group 9
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3640, 5.548] },
-        properties: {
-          title: "Semana del Medio Ambiente 2024",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Octubre 2024",
-          image: "https://via.placeholder.com/150?text=Semana+Medio+Ambiente"
-        }
-      },
-      // Group 10
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3645, 5.549] },
-        properties: {
-          title: "Charlas, talleres y concursos en la Alcaldía",
-          cluster: false,
-          venue: "Alcaldía de Tunja",
-          event_count: 1,
-          start_date: "Octubre 2024",
-          image: "https://via.placeholder.com/150?text=Charlas+en+Alcald%C3%ADa"
-        }
-      },
-      // Group 11
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3650, 5.550] },
-        properties: {
-          title: "Construcción del Centro de Ciencia y Tecnología9",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          image: "https://via.placeholder.com/150?text=Centro+de+Ciencia+Tecnolog%C3%ADa"
-        }
-      },
-      // Group 12
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3655, 5.551] },
-        properties: {
-          title: "Actividades académicas fin de año",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Diciembre 2024",
-          image: "https://via.placeholder.com/150?text=Actividades+acad%C3%A9micas"
-        }
-      },
-      // Group 13
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3660, 5.552] },
-        properties: {
-          title: "Aguinaldo Boyacense 2024",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Diciembre 2024",
-          image: "https://via.placeholder.com/150?text=Aguinaldo+Boyacense"
-        }
-      },
-      // Group 14 - updated: replace "Gobernación" with "Alcaldía"
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3665, 5.553] },
-        properties: {
-          title: "Proyectos priorizados con la Alcaldía de Boyacá1",
-          cluster: false,
-          venue: "Tunja",
-          event_count: 1,
-          start_date: "Febrero 2024",
-          image: "https://via.placeholder.com/150?text=Proyectos+Alcald%C3%ADa+Boyac%C3%A1"
-        }
-      },
-      // Group 15
-      {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [-73.3670, 5.554] },
-        properties: {
-          title: "Mejoramiento de infraestructura vial",
-          cluster: false,
-          venue: "Vías urbanas de Tunja",
-          event_count: 1,
-          image: "https://via.placeholder.com/150?text=Infraestructura+vial"
+          id: "5",
+          title: "Pavimentación Barrio La María",
+          description: "Pavimentación de vías secundarias del barrio La María, incluyendo instalación de redes de agua potable y alcantarillado.",
+          status: "En ejecución",
+          venue: "Construccion Techo polideportivo",
+          location: "Vías secundarias del barrio La María",
+          start_date: "2024-03-01",
+          image: "https://pbs.twimg.com/media/GnYvie1XoAIDpJM?format=jpg&name=large"
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [-73.3711, 5.5211]
         }
       }
     ]

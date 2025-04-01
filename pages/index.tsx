@@ -14,7 +14,7 @@ const Home = () => {
   const [selectedMarker, setSelectedMarker] = useState<any>(null);
   const [pageIsMounted, setPageIsMounted] = useState(false);
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
-  const { data, error } = useSWR("/api/liveMusic", fetcher);
+  const { data, error } = useSWR("/api/live-music", fetcher);
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Home = () => {
   useEffect(() => {
     mapboxgl.accessToken = "pk.eyJ1IjoiYWxiZXJ0b21pbGxhbmMiLCJhIjoiY202dTFlbWF6MDl0bDJqcTN2NmY2YWI2cSJ9.8wVHTNkuwYD-j0Q1HjROwg";
     setPageIsMounted(true);
+
     const initialize = async () => {
       if (mapContainerRef.current) {
         const newMap = new mapboxgl.Map({
@@ -36,64 +37,110 @@ const Home = () => {
             [-73.5, 5.4],
             [-73.2, 5.7],
           ],
+          preserveDrawingBuffer: true
         });
+
         newMap.addControl(new mapboxgl.NavigationControl(), "top-right");
         newMap.addControl(
           new mapboxgl.GeolocateControl({
-            positionOptions: { enableHighAccuracy: true },
+            positionOptions: { 
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 0
+            },
             trackUserLocation: true,
+            showUserHeading: true,
+            showAccuracyCircle: true,
+            fitBoundsOptions: {
+              maxZoom: 15,
+              padding: 50
+            }
           }),
           "top-right"
         );
         newMap.addControl(new mapboxgl.ScaleControl({ maxWidth: 80, unit: "metric" }));
-        setMap(newMap);
+
+        // Añadir evento de clic en el mapa
+        newMap.on('click', (e) => {
+          // Verificar si el clic fue en un marcador
+          const features = newMap.queryRenderedFeatures(e.point, {
+            layers: ['obras-points']
+          });
+
+          // Si no se hizo clic en un marcador, cerrar el ObrasList
+          if (features.length === 0) {
+            setSelectedMarker(null);
+          }
+        });
+
+        newMap.on('load', () => {
+          setMap(newMap);
+        });
       }
     };
+
     initialize();
+
+    return () => {
+      if (map) {
+        map.remove();
+      }
+    };
   }, []);
 
   useEffect(() => {
     if (pageIsMounted && map && data) {
-      if (!map.loaded()) {
-        map.on("load", () => {
-          addDataLayer(map, data, setSelectedMarker);
-        });
-      } else {
-        addDataLayer(map, data, setSelectedMarker);
+      // Remover capas y fuente existentes antes de agregar nuevas
+      if (map.getLayer('obras-points')) {
+        map.removeLayer('obras-points');
       }
+      if (map.getLayer('obras-labels')) {
+        map.removeLayer('obras-labels');
+      }
+      if (map.getSource('obras')) {
+        map.removeSource('obras');
+      }
+
+      // Agregar nuevas capas con los datos
+      addDataLayer(map, data, setSelectedMarker);
     }
   }, [pageIsMounted, data, map]);
 
+  // Función para cerrar el ObrasList
+  const closeObrasList = () => {
+    setSelectedMarker(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
       <header className="bg-blue-500 text-white p-4">
-        <div className={styles.navbarContainer}>
-          {/* Navbar component handles the title and links */}
-          <Navbar />
-        </div>
+        <Navbar />
       </header>
 
-      {/* Main Content with three columns */}
       <div className={styles.threeColumn}>
-        <div className={styles.column}>
-          <InstagramEmbed postUrl="https://www.instagram.com/alcaldiadetunja" />
-        </div>
-        <div className={styles.column}>
+        <div className={`${styles.column} ${styles.mapColumn}`}>
           <Head>
-            <title>Create Next App</title>
+            <title>Mapa de Obras - Tunja</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <main className={styles.mapSection}>
-            <div ref={mapContainerRef} id="my-map" style={{ height: "500px", width: "100%" }} />
+            <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />
           </main>
         </div>
-        <div className={styles.column}>
-          <ObrasList markerData={selectedMarker} />
+
+        <div className={styles.secondaryColumns}>
+          {selectedMarker && (
+            <div className={`${styles.column} ${styles.obrasColumn}`}>
+              <ObrasList markerData={selectedMarker} onClose={closeObrasList} />
+            </div>
+          )}
+
+          <div className={`${styles.column} ${styles.instagramColumn}`}>
+            <InstagramEmbed postUrl="https://www.instagram.com/alcaldiadetunja" />
+          </div>
         </div>
       </div>
 
-      {/* Footer */}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

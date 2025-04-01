@@ -1,45 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "../styles/Home.module.css";
 
-type Feature = {
-  properties: {
-    title: string;
-    // ...existing properties...
-  };
-};
+interface MarkerData {
+  id: string;
+  name: string;
+  description: string;
+  coordinates: [number, number];
+  status: string;
+  location?: string;
+  start_date?: string;
+  image?: string;
+}
 
-const ObrasList: React.FC = () => {
-  const [features, setFeatures] = useState<Feature[]>([]);
+interface ObrasListProps {
+  markerData: MarkerData | null;
+  onClose: () => void;
+}
 
-  useEffect(() => {
-    fetch('/api/liveMusic')
-      .then((res) => res.json())
-      .then((data) => setFeatures(data.features))
-      .catch(console.error);
-  }, []);
-
-  // Define allowed construction-related keywords
-  const allowedKeywords = ["constru", "pavimenta", "obra", "mejoramiento", "entrega", "alcantarillado", "vial"];
-  const undesiredTitle = "¡a tunja la construimos entre todos! (compromiso ciudadano)3";
-
-  const filteredFeatures = features.filter(feature => {
-    const title = feature.properties.title.toLowerCase();
-    if(title === undesiredTitle) return false;
-    return allowedKeywords.some(keyword => title.includes(keyword));
-  });
+const ObrasList = ({ markerData, onClose }: ObrasListProps) => {
+  if (!markerData) {
+    return null;
+  }
 
   return (
-    <div className={styles.obrasList} role="complementary" aria-label="Lista de Obras">
-      <h3 className={styles.subtitle}>Obras que transforman la ciudad</h3>
-      {/* Internal scroll container for the list */}
-      <div className={styles.obrasListInner}>
-        <ul role="list">
-          {filteredFeatures.map((feature, idx) => (
-            <li key={idx} role="listitem" tabIndex={0}>
-              {feature.properties.title}
-            </li>
-          ))}
-        </ul>
+    <div className={styles.obrasList}>
+      <button className={styles.closeButton} onClick={onClose}>
+        ×
+      </button>
+      <h2>{markerData.name}</h2>
+      {markerData.image && (
+        <div className={styles.obrasImageContainer}>
+          <img 
+            src={markerData.image} 
+            alt={markerData.name}
+            className={styles.obrasImage}
+          />
+        </div>
+      )}
+      <div className={styles.obrasDetails}>
+        <p><strong>Estado:</strong> {markerData.status}</p>
+        {markerData.location && (
+          <p><strong>Ubicación:</strong> {markerData.location}</p>
+        )}
+        {markerData.start_date && (
+          <p><strong>Fecha:</strong> {markerData.start_date}</p>
+        )}
+        <p><strong>Descripción:</strong> {markerData.description}</p>
       </div>
     </div>
   );

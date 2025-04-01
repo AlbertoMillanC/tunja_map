@@ -1,73 +1,107 @@
 import mapboxgl from 'mapbox-gl';
+import { texts } from '../content/texts';
+
+interface ObraData {
+  id: string;
+  name: string;
+  description: string;
+  coordinates: [number, number];
+  status: string;
+  location?: string;
+  start_date?: string;
+  image?: string;
+}
 
 export const addDataLayer = (
   map: mapboxgl.Map,
   data: any,
-  setSelectedMarker: (markerData: any) => void
+  setSelectedMarker: (marker: ObraData | null) => void
 ) => {
-  // Create a popup instance (not added to the map yet)
+  // Crear una instancia de popup (no se añade al mapa aún)
   const popup = new mapboxgl.Popup({
     closeButton: true,
     closeOnClick: true,
-    maxWidth: '300px'
+    maxWidth: '200px',
+    anchor: 'bottom'
   });
 
-  map.addSource("places", {
-    type: "geojson",
-    data: data
+  // Asegurarse de que data sea un array
+  const obrasData = Array.isArray(data) ? data : [];
+
+  // Agregar fuente de datos
+  map.addSource('obras', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: obrasData.map(obra => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: obra.coordinates
+        },
+        properties: obra
+      }))
+    }
   });
 
+  // Agregar capa de puntos
   map.addLayer({
-    id: "places",
-    type: "circle",
-    source: "places",
+    id: 'obras-points',
+    type: 'circle',
+    source: 'obras',
     paint: {
-      "circle-color": "#4264fb", // blue tone
-      "circle-radius": 8,
-      "circle-stroke-width": 2,
-      "circle-stroke-color": "#ffffff"
+      'circle-radius': [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        7, 4,
+        16, 8
+      ],
+      'circle-color': [
+        'match',
+        ['get', 'status'],
+        'in_progress', '#ffd700',
+        'completed', '#28a745',
+        'planned', '#17a2b8',
+        'delayed', '#dc3545',
+        '#6c757d'
+      ],
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#fff'
     }
   });
 
-  // Handle click events on the places layer
-  map.on("click", "places", (e) => {
+  // Agregar capa de etiquetas
+  map.addLayer({
+    id: 'obras-labels',
+    type: 'symbol',
+    source: 'obras',
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-size': 12,
+      'text-anchor': 'top',
+      'text-offset': [0, 1.5],
+      'text-allow-overlap': true
+    },
+    paint: {
+      'text-color': '#000'
+    }
+  });
+
+  // Agregar eventos de clic
+  map.on('click', 'obras-points', (e) => {
     if (e.features && e.features[0]) {
-      const coordinates = e.features[0].geometry.coordinates.slice();
-      const properties = e.features[0].properties;
-
-      // Construct popup content with title, venue, image and location if available
-      const popupContent = `
-        <div class="popup-content">
-          <h3>${properties.title}</h3>
-          ${properties.image ? `<img src="${properties.image}" alt="${properties.title}" style="width:100%; border-radius:4px; margin-bottom: 10px;">` : ''}
-          <p><strong>Lugar:</strong> ${properties.venue}</p>
-          ${properties.location ? `<p><strong>Ubicación:</strong> ${properties.location}</p>` : ''}
-          ${properties.start_date ? `<p><strong>Fecha:</strong> ${properties.start_date}</p>` : ''}
-        </div>
-      `;
-
-      // Adjust coordinates so the popup appears correctly
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      // Set popup content and location then add to the map.
-      popup
-        .setLngLat(coordinates)
-        .setHTML(popupContent)
-        .addTo(map);
-
-      // Update selected marker state
-      setSelectedMarker(properties);
+      const feature = e.features[0];
+      setSelectedMarker(feature.properties as ObraData);
     }
   });
 
-  // Change cursor to pointer when hovering over places
-  map.on("mouseenter", "places", () => {
-    map.getCanvas().style.cursor = "pointer";
+  // Cambiar el cursor al pasar sobre los puntos
+  map.on('mouseenter', 'obras-points', () => {
+    map.getCanvas().style.cursor = 'pointer';
   });
 
-  map.on("mouseleave", "places", () => {
-    map.getCanvas().style.cursor = "";
+  map.on('mouseleave', 'obras-points', () => {
+    map.getCanvas().style.cursor = '';
   });
 };

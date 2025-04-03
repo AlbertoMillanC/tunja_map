@@ -141,13 +141,13 @@ export default function Map({ onMarkerClick }: MapProps) {
         // Crear el popup
         const popup = new mapboxgl.Popup({ offset: 25 })
           .setHTML(`
-            <div class="p-2">
-              <h3 class="font-bold text-lg mb-2">${obra.title}</h3>
+            <div class="p-2 max-w-[200px]">
+              <h3 class="font-semibold text-sm mb-2">${obra.title}</h3>
               ${obra.images?.[0] ? `
                 <img 
                   src="${obra.images[0]}" 
                   alt="${obra.title}" 
-                  class="w-full h-48 object-cover rounded-lg mb-2"
+                  class="w-full h-32 object-cover rounded-lg"
                 />
               ` : ''}
             </div>

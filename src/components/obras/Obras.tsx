@@ -41,28 +41,28 @@ export function Obras({ obra }: ObrasProps) {
   };
 
   return (
-    <div className="bg-gray-900 rounded-lg shadow-md p-6 text-white">
-      <h2 className="text-2xl font-bold mb-4">{obra.title}</h2>
+    <div className="bg-gray-900 rounded-lg shadow-md p-4 text-white">
+      <h2 className="text-xl font-bold mb-3">{obra.title}</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-3">
         <div>
-          <h3 className="text-lg font-semibold text-gray-300">Descripción</h3>
-          <p className="text-gray-400">{obra.description}</p>
+          <h3 className="text-base font-semibold text-gray-300">Descripción</h3>
+          <p className="text-sm text-gray-400">{obra.description}</p>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-300">Estado</h3>
-          <p className="text-gray-400">{formatStatus(obra.status)}</p>
+          <h3 className="text-base font-semibold text-gray-300">Estado</h3>
+          <p className="text-sm text-gray-400">{formatStatus(obra.status)}</p>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-300">Presupuesto</h3>
-          <p className="text-gray-400">{formatCurrency(obra.budget)}</p>
+          <h3 className="text-base font-semibold text-gray-300">Presupuesto</h3>
+          <p className="text-sm text-gray-400">{formatCurrency(obra.budget)}</p>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-300">Fechas</h3>
-          <p className="text-gray-400">
+          <h3 className="text-base font-semibold text-gray-300">Fechas</h3>
+          <p className="text-sm text-gray-400">
             <span className="font-medium">Inicio:</span> {formatDate(obra.startDate)}
             <br />
             <span className="font-medium">Finalización:</span> {formatDate(obra.endDate)}

@@ -24,18 +24,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex gap-8">
-        <div className="w-3/4">
-          <Map onMarkerClick={(obra) => setSelectedObra(obra)} />
-        </div>
-        <div className="w-1/4 obra-panel">
-          {selectedObra ? (
-            <Obras obra={selectedObra} />
-          ) : (
-            <InstagramEmbed />
-          )}
-        </div>
+    <div className="flex gap-8 h-[calc(100vh-theme(spacing.16))]">
+      <div className="w-3/4">
+        <Map onMarkerClick={(obra) => setSelectedObra(obra)} />
+      </div>
+      <div className="w-1/4 obra-panel">
+        {selectedObra ? (
+          <Obras obra={selectedObra} />
+        ) : (
+          <InstagramEmbed />
+        )}
       </div>
     </div>
   );

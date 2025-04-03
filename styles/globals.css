@@ -1,110 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import "./focusStyles.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --bg-color: #000;
-  --text-color: #fff;
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --font-family: 'Roboto', sans-serif;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 4rem;
-  --transition-speed: 0.3s;
-}
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: var(--font-family);
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  overflow: hidden;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--font-family);
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Estilos para el mapa */
+.mapboxgl-map {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
+.mapboxgl-popup {
+  max-width: 400px;
 }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-}
-
-p {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.6;
-  max-width: 75ch;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.75rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-  }
-}
-
-.popup-content {
-  padding: 10px;
-}
-
-.popup-content h3 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 16px;
-}
-
-.popup-content p {
-  margin: 5px 0;
-  color: #666;
-  font-size: 14px;
-}
-
-/* Customize Mapbox popup defaults */
 .mapboxgl-popup-content {
-  padding: 15px;
-  border-radius: 8px;
+  padding: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.mapboxgl-popup-close-button {
-  padding: 5px;
-  right: 5px;
-  top: 5px;
+/* Estilos para la galería de imágenes */
+.image-gallery {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.image-gallery-slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }

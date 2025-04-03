@@ -1,0 +1,74 @@
+{
+  "obras": [
+    {
+      "id": 1,
+      "title": "Pavimentación Avenida Norte",
+      "description": "Pavimentación y mejoramiento de la Avenida Norte desde la calle 55 hasta la calle 60",
+      "location": {
+        "lat": 5.5445,
+        "lng": -73.3627
+      },
+      "status": "completed",
+      "images": ["/images/obra1.jpg"],
+      "budget": "1.500.000.000",
+      "startDate": "2024-01-15",
+      "endDate": "2024-03-30"
+    },
+    {
+      "id": 2,
+      "title": "Pavimentación Barrio Los Muiscas",
+      "description": "Pavimentación de vías principales del Barrio Los Muiscas",
+      "location": {
+        "lat": 5.5398,
+        "lng": -73.3589
+      },
+      "status": "in_progress",
+      "images": ["/images/obra2.jpg"],
+      "budget": "800.000.000",
+      "startDate": "2024-02-01",
+      "endDate": "2024-05-30"
+    },
+    {
+      "id": 3,
+      "title": "Pavimentación Calle 53",
+      "description": "Pavimentación y recuperación de andenes de la Calle 53",
+      "location": {
+        "lat": 5.5512,
+        "lng": -73.3654
+      },
+      "status": "planned",
+      "images": ["/images/obra3.jpg"],
+      "budget": "1.200.000.000",
+      "startDate": "2024-05-01",
+      "endDate": "2024-08-30"
+    },
+    {
+      "id": 4,
+      "title": "Pavimentación Barrio La Fuente",
+      "description": "Pavimentación de calles secundarias del Barrio La Fuente",
+      "location": {
+        "lat": 5.5367,
+        "lng": -73.3612
+      },
+      "status": "in_progress",
+      "images": ["/images/obra4.jpg"],
+      "budget": "950.000.000",
+      "startDate": "2024-03-15",
+      "endDate": "2024-06-30"
+    },
+    {
+      "id": 5,
+      "title": "Pavimentación Avenida Universitaria",
+      "description": "Pavimentación y señalización de la Avenida Universitaria",
+      "location": {
+        "lat": 5.5489,
+        "lng": -73.3573
+      },
+      "status": "completed",
+      "images": ["/images/obra5.jpg"],
+      "budget": "2.100.000.000",
+      "startDate": "2024-01-01",
+      "endDate": "2024-03-15"
+    }
+  ]
+}

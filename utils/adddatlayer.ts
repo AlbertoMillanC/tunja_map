@@ -1,4 +1,5 @@
-import type { Map } from 'mapbox-gl';
+/// <reference types="mapbox-gl" />
+import { Map } from 'mapbox-gl';
 import { texts } from '../content/texts';
 
 interface DatLayerOptions {

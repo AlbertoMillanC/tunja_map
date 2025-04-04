@@ -1,72 +1,56 @@
 'use client';
 
-import { Obra } from '@/types';
+import type { Obra } from '@/types';
 
 interface ObrasProps {
-  obra?: Obra;
+  obra: Obra;
 }
 
 export function Obras({ obra }: ObrasProps) {
-  if (!obra) return null;
-
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('es-CO', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  const formatStatus = (status: string) => {
+  const getStatusText = (status: string) => {
     switch (status) {
       case 'completed':
         return 'Completada';
       case 'in_progress':
-        return 'En ejecución';
+        return 'En Progreso';
       case 'planned':
         return 'Planeada';
       default:
-        return status;
+        return 'Estado Desconocido';
     }
   };
 
-  const formatCurrency = (amount: string) => {
-    const numericAmount = amount.replace(/[^0-9]/g, '');
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(Number(numericAmount));
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'bg-green-500';
+      case 'in_progress':
+        return 'bg-red-500';
+      case 'planned':
+        return 'bg-blue-500';
+      default:
+        return 'bg-gray-500';
+    }
   };
 
   return (
-    <div className="bg-gray-900 rounded-lg shadow-md p-4 text-white">
-      <h2 className="text-xl font-bold mb-3">{obra.title}</h2>
-      
-      <div className="space-y-3">
-        <div>
-          <h3 className="text-base font-semibold text-gray-300">Descripción</h3>
-          <p className="text-sm text-gray-400">{obra.description}</p>
+    <div className="bg-gray-900 text-white rounded-lg overflow-hidden">
+      <div className="p-4 space-y-3">
+        <h2 className="text-lg md:text-base font-semibold">{obra.title}</h2>
+        <p className="text-sm text-gray-300">{obra.description}</p>
+        
+        <div className="flex flex-wrap gap-3 text-sm">
+          <span className={`px-2 py-1 rounded-full ${getStatusColor(obra.status)}`}>
+            {getStatusText(obra.status)}
+          </span>
+          <span className="px-2 py-1 bg-gray-700 rounded-full">
+            Presupuesto: ${obra.budget}
+          </span>
         </div>
-
-        <div>
-          <h3 className="text-base font-semibold text-gray-300">Estado</h3>
-          <p className="text-sm text-gray-400">{formatStatus(obra.status)}</p>
-        </div>
-
-        <div>
-          <h3 className="text-base font-semibold text-gray-300">Presupuesto</h3>
-          <p className="text-sm text-gray-400">{formatCurrency(obra.budget)}</p>
-        </div>
-
-        <div>
-          <h3 className="text-base font-semibold text-gray-300">Fechas</h3>
-          <p className="text-sm text-gray-400">
-            <span className="font-medium">Inicio:</span> {formatDate(obra.startDate)}
-            <br />
-            <span className="font-medium">Finalización:</span> {formatDate(obra.endDate)}
-          </p>
+        
+        <div className="text-sm text-gray-300 space-y-1">
+          <p>Inicio: {new Date(obra.startDate).toLocaleDateString()}</p>
+          <p>Fin: {new Date(obra.endDate).toLocaleDateString()}</p>
         </div>
       </div>
     </div>

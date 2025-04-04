@@ -46,10 +46,10 @@ export default function Map({ onMarkerClick }: MapProps) {
         return res.json();
       })
       .then(data => {
-        if (!Array.isArray(data.obras)) {
+        if (!Array.isArray(data)) {
           throw new Error('Formato de datos inválido');
         }
-        setObras(data.obras);
+        setObras(data);
       })
       .catch(err => {
         console.error('Error:', err);
@@ -141,8 +141,8 @@ export default function Map({ onMarkerClick }: MapProps) {
         // Crear el popup
         const popup = new mapboxgl.Popup({ offset: 25 })
           .setHTML(`
-            <div class="p-2 max-w-[200px]">
-              <h3 class="font-semibold text-sm mb-2">${obra.title}</h3>
+            <div class="p-2 max-w-[200px] bg-white">
+              <h3 class="font-semibold text-sm mb-2 text-gray-900">${obra.title}</h3>
               ${obra.images?.[0] ? `
                 <img 
                   src="${obra.images[0]}" 
@@ -172,13 +172,13 @@ export default function Map({ onMarkerClick }: MapProps) {
 
   if (error) {
     return (
-      <div className="w-full h-[600px] bg-white rounded-lg shadow-md flex items-center justify-center">
+      <div className="w-full h-full min-h-[calc(100vh-theme(spacing.16))] bg-white rounded-lg shadow-md flex items-center justify-center">
         <p className="text-red-600">{error}</p>
       </div>
     );
   }
 
   return (
-    <div ref={mapContainer} className="w-full h-[600px] bg-white rounded-lg shadow-md" />
+    <div className="w-full h-full min-h-[calc(100vh-theme(spacing.16))]" ref={mapContainer} />
   );
 }

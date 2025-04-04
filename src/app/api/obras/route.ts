@@ -10,7 +10,12 @@ export async function GET() {
       path.join(dataDirectory, 'obras.json'),
       'utf8'
     );
-    const obras: Obra[] = JSON.parse(fileContents);
+    const data = JSON.parse(fileContents);
+    const obras: Obra[] = data.obras;
+
+    if (!Array.isArray(obras)) {
+      throw new Error('Formato de datos inválido');
+    }
 
     return NextResponse.json(obras);
   } catch (error) {
